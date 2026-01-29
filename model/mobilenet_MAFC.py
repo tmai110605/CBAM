@@ -20,7 +20,7 @@ class DepthwiseSeparableConvBlock(torch.nn.Module):
         self.use_res_skip = (in_channels == out_channels) and (stride == 1)
         self.conv_dw = conv3x3_dw_block(channels=in_channels, stride=stride)
         self.conv_pw = conv1x1_block(in_channels=in_channels, out_channels=out_channels)
-        self.cbamm = BAM(out_channels)
+        self.cbamm = CBAM(out_channels)
     def forward(self, x):
         if self.use_res_skip:
             residual = x
@@ -55,7 +55,7 @@ class LinearBottleneck(torch.nn.Module):
         else:
             raise ValueError
         if self.use_se:
-            self.cbamm = BAM(out_channels)
+            self.cbamm = CBAM(out_channels)
         self.conv3 = conv1x1_block(in_channels=mid_channels, out_channels=out_channels, activation=None)
 
     def forward(self, x):

@@ -81,9 +81,9 @@ class SpatialGate(nn.Module):
         scale = F.sigmoid(x_out) # broadcasting
         return x * scale
 
-class BAM(nn.Module):
+class CBAM(nn.Module):
     def __init__(self, gate_channels, reduction_ratio=16, pool_types=['avg', 'max'], no_spatial=False):
-        super(BAM, self).__init__()
+        super(CBAM, self).__init__()
         self.ChannelGate = ChannelGate(gate_channels, reduction_ratio, pool_types)
         self.no_spatial=no_spatial
         if not no_spatial:
